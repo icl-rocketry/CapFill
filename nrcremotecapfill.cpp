@@ -8,7 +8,7 @@ void NRCRemoteCapFill::update()
 
 void NRCRemoteCapFill::calibrate_impl(packetptr_t packetptr){
     
-    PTapCalibrationPacket calibrate_comm(*packetptr);
+    CapFillCalibrationPacket calibrate_comm(*packetptr);
 
     std::vector<uint8_t> serialisedvect = packetptr->getBody();
 
@@ -31,7 +31,7 @@ void NRCRemoteCapFill::loadCalibration(){
     if(calibSerialised.size() == 0){
         return;
     }
-    PTapCalibrationPacket calibpacket;
+    CapFillCalibrationPacket calibpacket;
     calibpacket.deserializeBody(calibSerialised);
 
     m_c = calibpacket.c;

@@ -6,9 +6,9 @@
 #include <librnp/rnp_packet.h>
 
 #include <librrc/Helpers/nvsstore.h>
-#include <librrc/packets/ptapcalibrationpacket.h>
+#include <librrc/packets/capfillcalibrationpacket.h>
 
-#include "Sensors/FDC2214.h"
+#include "FDC2212.h"
 
 class NRCRemoteCapFill : public NRCRemoteSensorBase<NRCRemoteCapFill>
 {
@@ -16,7 +16,7 @@ class NRCRemoteCapFill : public NRCRemoteSensorBase<NRCRemoteCapFill>
     
         NRCRemoteCapFill(RnpNetworkManager& networkmanager,
                     uint8_t levelsensorindex,
-                    FDC2214 & FDC,
+                    FDC2212 & FDC,
                     uint8_t fdc_channel,
                     float c=1,
                     float grad=1
@@ -35,7 +35,7 @@ class NRCRemoteCapFill : public NRCRemoteSensorBase<NRCRemoteCapFill>
 
         void setup(){
             loadCalibration();
-
+            m_FDC.setup();
         };
 
         float getC() {return m_c;};
@@ -48,11 +48,10 @@ class NRCRemoteCapFill : public NRCRemoteSensorBase<NRCRemoteCapFill>
 
         friend class NRCRemoteSensorBase<NRCRemoteCapFill>;
         uint8_t m_levelsensorindex;
-        FDC2214& m_FDC;
+        FDC2212& m_FDC;
         uint8_t m_fdc_channel;
         float m_c;
         float m_grad;
         float level;
-
         void loadCalibration();
 };
